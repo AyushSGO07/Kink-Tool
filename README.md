@@ -1,15 +1,15 @@
-# Kink Tool ☀️
+# Kink Tool 
 
 A premium, AI-powered web application that helps users discover their perfect adult star match based on personalized preferences. Built with Streamlit and Google's Gemini AI, wrapped in a beautiful, handcrafted glassmorphism UI.
 
-## ✨ Features
+## Features
 - **AI-Powered Matching**: Uses Google's `gemini-1.5-flash` (or custom models) to intelligently process user preferences (sexuality, age range, body features).
 - **Premium UI/UX**: Features a highly responsive, custom-built CSS glassmorphism interface floating over an animated, dynamic fractal gradient background.
 - **Dynamic Image Fetching**: Automatically retrieves high-quality thumbnails of the matched stars using the Wikipedia API, with smart fallbacks for unlisted names.
 - **Structured JSON Prompts**: Uses Langchain to strictly enforce formatted JSON outputs from the LLM, ensuring reliable frontend rendering.
 
-## 🚀 Live Demo
-*(If you deployed this via Streamlit Community Cloud, add your public link here!)*
+## Live Demo
+https://kink-tool-9dfm6xrmdjwfusad26mqkw.streamlit.app/
 
 ---
 
@@ -47,12 +47,12 @@ streamlit run Kink_Tool.py
 - `requirements.txt`: Python dependencies required to run the app.
 - `.env`: (Ignored via git) Stores sensitive API keys.
 
-## 🎨 Design
+## Design
 The application interface uses raw CSS injected into Streamlit to override defaults. It features:
 - Backdrop-filter blurring for frosted glass effects
 - Soft glowing borders and shadows
 - Smooth cubic-bezier hover transitions
 - Scaled up, readable typography using the *Inter* font family.
 
-## 📝 License
+## License
 This project is for educational and entertainment purposes. Ensure you comply with Google Gemini's API terms of service when deploying applications that handle mature themes.
