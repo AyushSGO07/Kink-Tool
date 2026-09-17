@@ -1,0 +1,17 @@
+{
+    "name": null,
+    "input_variables": [
+        "age",
+        "body_features",
+        "sexuality"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": "User Preferences:\n- Sexuality: {sexuality}\n- Body Features: {body_features}\n- Age Range: {age}\n\nInstructions:\n1. Identify 3 to 5 well-known adult performers matching these characteristics.\n2. Do not generate explicit sexual narratives; focus strictly on matching physical characteristics and aesthetic vibes.\n3. Return the response EXCLUSIVELY as a valid JSON array containing objects with this exact structure (no markdown tags, no markdown formatting like ```json):\n[\n  {{\n    \"name\": \"Performer Name\",\n    \"match_reason\": \"Why they match.\",\n    \"attributes\": [\"attr1\", \"attr2\"]\n  }}\n]",
+    "template_format": "f-string",
+    "validate_template": true,
+    "_type": "prompt"
+}
