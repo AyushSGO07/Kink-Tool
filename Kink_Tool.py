@@ -55,7 +55,7 @@ st.markdown("""
     }
 
     /* Vertical Centering & Zoom-in effect */
-    /* Streamlit's main app container */
+    /* Streamlit's main app container */ho
     .appview-container > section:first-child {
         display: flex;
         flex-direction: column;
@@ -316,7 +316,7 @@ with st.container():
     
     body_features = st.selectbox('Your Preference', ['Thick Thighs', 'Big Ass', 'Big Boobs', 'Petite', 'Athletic', 'Curvy', 'Blonde', 'Brunette', 'Redhead'])
 
-model = GoogleGenerativeAI(model='gemini-3.6-flash', temperature=0.7)
+model = GoogleGenerativeAI(model='gemini-3.6-flash', temperature=0.7, max_retries=3)
 # Use a relative path so it works in deployment environments
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -367,4 +367,8 @@ if st.button('✨ Find My Match ✨'):
                 st.error("Could not parse the results. Please try again.")
                 st.code(results)
         except Exception as e:
-            st.error(f"An error occurred: {e}")
+            error_msg = str(e).lower()
+            if "429" in error_msg or "exhausted" in error_msg or "quota" in error_msg:
+                st.error("⚠️ **API Quota Exhausted!** You have hit the rate limit for the Gemini API. Please wait a minute before trying again, or check your API billing limits in Google AI Studio.")
+            else:
+                st.error(f"An error occurred: {e}")
