@@ -8,6 +8,7 @@ from langchain_core.prompts import load_prompt
 
 load_dotenv()
 
+
 st.set_page_config(page_title="Star Matcher", page_icon="☀️", layout="wide")
 
 # Helper function to get image from Wikipedia
@@ -316,7 +317,10 @@ with st.container():
     
     body_features = st.selectbox('Your Preference', ['Thick Thighs', 'Big Ass', 'Big Boobs', 'Petite', 'Athletic', 'Curvy', 'Blonde', 'Brunette', 'Redhead'])
 
-model = GoogleGenerativeAI(model='gemini-3.6-flash', temperature=0.7, max_retries=3)
+model = GoogleGenerativeAI(
+    model="gemini-3.6-flash",
+    max_retries=5
+)
 # Use a relative path so it works in deployment environments
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -348,7 +352,7 @@ if st.button('✨ Find My Match ✨'):
                     attributes = star.get("attributes", [])
                     
                     search_query = urllib.parse.quote(name)
-                    search_url = f"https://duckduckgo.com/?q={search_query}&iax=images&ia=images"
+                    search_url = f"https://www.google.com/search?tbm=isch&q={search_query}"
                     image_url = get_image_url(name)
                     
                     attr_html = "".join([f"<span class='star-attribute'>{attr}</span>" for attr in attributes])
@@ -372,3 +376,20 @@ if st.button('✨ Find My Match ✨'):
                 st.error("⚠️ **API Quota Exhausted!** You have hit the rate limit for the Gemini API. Please wait a minute before trying again, or check your API billing limits in Google AI Studio.")
             else:
                 st.error(f"An error occurred: {e}")
+
+import time
+
+def generate_with_retry(model, prompt, retries=4):
+    for attempt in range(retries):
+        try:
+            return model.generate_content(prompt)
+
+        except Exception as e:
+            if "503" in str(e) or "UNAVAILABLE" in str(e):
+                wait = 2 ** attempt
+                print(f"Gemini busy. Retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+
+    raise Exception("Gemini is temporarily unavailable. Please try again later.")
